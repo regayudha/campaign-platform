@@ -40,7 +40,6 @@ A modern, full-stack marketing campaign platform built with Next.js, featuring A
 ### Prerequisites
 - Node.js 18+ 
 - npm or yarn
-- PostgreSQL database (for production) or SQLite (for development)
 
 ### Installation
 
@@ -52,8 +51,6 @@ npm install
 ```
 
 2. **Create environment file**:
-
-**For Development (SQLite):**
 ```bash
 # Create .env.local file with required variables
 echo "DATABASE_URL=file:./dev.db" > .env.local
@@ -65,22 +62,11 @@ echo "ADMIN_PASSWORD=admin123" >> .env.local
 
 Or manually create a `.env.local` file with:
 ```env
-# Development Environment (SQLite)
 DATABASE_URL="file:./dev.db"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="campaign-hub-secret-key-2024"
 ADMIN_EMAIL="admin@campaign.com"
 ADMIN_PASSWORD="admin123"
-```
-
-**For Production (PostgreSQL):**
-```env
-# Production Environment (PostgreSQL)
-DATABASE_URL="postgresql://username:password@localhost:5432/campaign_platform"
-NEXTAUTH_URL="https://your-domain.vercel.app"
-NEXTAUTH_SECRET="your-production-secret-key"
-ADMIN_EMAIL="admin@yourdomain.com"
-ADMIN_PASSWORD="secure-admin-password"
 ```
 
 3. **Set up the database**:
@@ -174,35 +160,12 @@ The admin dashboard provides comprehensive insights:
 
 ```bash
 npm run dev          # Start development server
-npm run build        # Build for production (includes Prisma generate)
+npm run build        # Build for production
 npm run start        # Start production server
-npm run setup        # Initialize database and admin user (development)
-npm run setup:prod   # Initialize database for production
+npm run setup        # Initialize database and admin user
 npm run db:generate  # Generate Prisma client
 npm run db:push      # Push schema changes to database
-npm run db:migrate   # Deploy migrations (production)
 npm run db:init      # Initialize database with sample data
-npm run db:reset     # Reset database (development only)
-```
-
-### Database Setup Commands
-
-**For Development (SQLite):**
-```bash
-npm run setup        # Complete setup with sample data
-```
-
-**For Production (PostgreSQL):**
-```bash
-npm run setup:prod   # Setup without sample data
-```
-
-**Manual Database Operations:**
-```bash
-npx prisma migrate dev --name init    # Create and apply migration (dev)
-npx prisma migrate deploy             # Apply migrations (production)
-npx prisma studio                     # Open database browser
-npx prisma db push                    # Push schema without migration
 ```
 
 ## 📁 Project Structure
@@ -233,71 +196,28 @@ campaign-platform/
 
 ## 🚀 Deployment
 
-### Vercel with PostgreSQL (Recommended)
+### Vercel (Recommended)
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy automatically
 
-1. **Set up Vercel Postgres**:
-   - Go to your Vercel project dashboard
-   - Navigate to **Storage** tab
-   - Create a new **Postgres** database
-   - Copy the connection string
-
-2. **Configure Environment Variables**:
-   Add these in your Vercel project settings:
-   ```env
-   DATABASE_URL="postgres://default:xxx@xxx-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-   NEXTAUTH_URL="https://your-app.vercel.app"
-   NEXTAUTH_SECRET="your-production-secret-key"
-   ADMIN_EMAIL="admin@yourdomain.com"
-   ADMIN_PASSWORD="secure-admin-password"
-   NODE_ENV="production"
-   ```
-
-3. **Deploy**:
-   ```bash
-   git add .
-   git commit -m "Configure PostgreSQL for production"
-   git push origin main
-   ```
-
-### Alternative: External PostgreSQL
-
-You can also use external PostgreSQL providers:
-- **Supabase**: Free tier with 500MB storage
-- **PlanetScale**: MySQL-compatible with generous free tier
-- **Railway**: PostgreSQL with simple setup
-- **Neon**: Serverless PostgreSQL
-
-### Local Development vs Production
-
-**Development (SQLite):**
-- Uses local SQLite database (`dev.db`)
-- Includes sample data for testing
-- Fast setup and development
-
-**Production (PostgreSQL):**
-- Uses PostgreSQL for better performance and scalability
-- No sample data in production
-- Proper indexing for better query performance
+### Manual Deployment
+1. Build the project: `npm run build`
+2. Set up production database
+3. Configure environment variables
+4. Start production server: `npm start`
 
 ## 🔒 Environment Variables
 
-### Development (`.env.local`):
+Create a `.env.local` file:
+
 ```env
 DATABASE_URL="file:./dev.db"
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="campaign-hub-secret-key-2024"
+NEXTAUTH_SECRET="your-secret-key"
 ADMIN_EMAIL="admin@campaign.com"
 ADMIN_PASSWORD="admin123"
-```
-
-### Production (Vercel Dashboard):
-```env
-DATABASE_URL="postgres://username:password@host:5432/database"
-NEXTAUTH_URL="https://your-app.vercel.app"
-NEXTAUTH_SECRET="your-production-secret-key"
-ADMIN_EMAIL="admin@yourdomain.com"
-ADMIN_PASSWORD="secure-admin-password"
-NODE_ENV="production"
 ```
 
 ## 🤝 Contributing

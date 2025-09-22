@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -19,8 +19,6 @@ model User {
   updatedAt DateTime @updatedAt
 
   @@map("users")
-  @@index([email])
-  @@index([createdAt])
 }
 
 model Admin {
@@ -32,7 +30,6 @@ model Admin {
   updatedAt DateTime @updatedAt
 
   @@map("admins")
-  @@index([email])
 }
 
 model Analytics {
@@ -44,8 +41,5 @@ model Analytics {
   createdAt   DateTime @default(now())
 
   @@map("analytics")
-  @@index([event])
-  @@index([createdAt])
-  @@index([event, createdAt])
 }
 
