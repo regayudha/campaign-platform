@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
@@ -15,6 +15,7 @@
     "db:init": "node scripts/init-db.js",
     "db:reset": "prisma migrate reset --force",
     "db:test": "node scripts/test-db-connection.js",
+    "deploy:debug": "node scripts/quick-deploy-fix.js",
     "setup": "npm run db:generate && npm run db:push && npm run db:init",
     "setup:prod": "npm run db:generate && npm run db:migrate && npm run db:init"
   },
